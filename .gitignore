@@ -1,0 +1,24 @@
+.streamlit/
+.env
+*.log
+secrets.toml
+
+#.py
+venv/
+.venv/
+env/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.pyc
+
+#IDE & system
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+*.csv
+*.xlsx
+*~
