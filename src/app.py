@@ -173,6 +173,19 @@ if btn:
             
             # let's try downloading data
             if detector.fetch_and_normalize_shares() and detector.calculate_dilution_metrics():
+                
+                # get the company name
+                company_info = detector.ticker.info
+                company_name = company_info.get('longName') or company_info.get('shortName') or query.upper()
+                
+                # show company's name
+                st.markdown(f"""
+                    <h2 style='text-align: center; color: white; margin-bottom: 0;'>
+                        {company_name}
+                    </h2>
+                    """, unsafe_allow_html=True)
+                st.markdown("<hr style='margin-top: 5px; margin-bottom: 25px; border: 1px solid #333;'>",unsafe_allow_html=True)
+
                 # KPI (key performance indicator)
                 m1, m2, m3 = st.columns(3)
                 last_var = detector.yearly_dilution_pct.iloc[-1]
@@ -194,16 +207,16 @@ if btn:
 
                 st.write("###")
 
-                # slipt the page
+                # split the page
                 col_left, col_right = st.columns([0.65, 0.35])
                 
                 with col_left:
-                    st.subheader(texts["chart_title"])
-                    # In app.py, sostituisci la riga px.area con questa:
+                    st.subheader(f"{texts['chart_title']} - {company_name}")
+                    
                     fig = px.area(
                         x=detector.shares_data.index, 
                         y=detector.shares_data['Adjusted_Shares'],
-                        labels={'x': texts['date'], 'y': texts['kpi_shares']} # Usa la traduzione già pronta!
+                        labels={'x': texts['date'], 'y': texts['kpi_shares']}
                     )
                     
                     # chart
@@ -213,7 +226,7 @@ if btn:
                         dragmode=False
                     )
                     
-                    # chart
+                    #chart
                     st.plotly_chart(
                         fig, 
                         use_container_width=True,
@@ -224,7 +237,8 @@ if btn:
                     )
                     
                 with col_right:
-                    st.subheader(texts["alert_title"])
+                    st.subheader(f"{texts['alert_title']} - {company_name}")
+                    
                     with st.container(height=450):
                         for alert in detector.alerts[::-1]:
                             if "🚩" in alert or "🚨" in alert: st.error(alert)
