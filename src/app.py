@@ -2,6 +2,7 @@ import streamlit as st
 import plotly.express as px
 from dilution_logic import DilutionDetector
 from translations import LANGUAGES, FAQ
+from styles import applyCSS_styles
 import base64
 import os
 
@@ -13,114 +14,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# 2 - CSS
-st.markdown("""
-    <style>
-    header[data-testid="stHeader"] {
-        visibility: hidden;
-        height: 0%;
-    }
-    [data-testid="stHeaderActionElements"] {
-        display: none !important;
-    }
-    
-    [data-testid="stSidebarNav"], 
-    [data-testid="stSidebar"], 
-    [data-testid="collapsedControl"] {
-        display: none !important;
-    }
-
-    footer { visibility: hidden; }
-    [data-testid="stStatusWidget"] { visibility: hidden; }
-    .stMarkdown h1 a, .stMarkdown h2 a { display: none !important; }
-
-    [data-testid="stMetric"] {
-        background-color: #1E1E1E !important;
-        padding: 20px !important;
-        border-radius: 12px !important;
-        border: 1px solid #333 !important;
-    }
-    
-    .header-container {
-        background-color: #0E1117;
-        padding: 40px 20px;
-        border-radius: 20px;
-        text-align: center;
-        margin-bottom: 25px;
-    }
-            
-    input::placeholder { color: #A0AEC0 !important; transition: color 0.3s ease; }
-    input:focus::placeholder { color: transparent !important; }
-
-    .main-footer {
-        background-color: #0E1117;
-        padding: 40px;
-        border-radius: 20px;
-        margin-top: 50px;
-        margin-bottom: 30px;
-        text-align: center;
-        border: 1px solid #333;
-    }
-    
-    .btc-address {
-        background-color: #1E1E1E;
-        color: #F7931A;
-        padding: 12px 20px;
-        border-radius: 10px;
-        font-family: monospace;
-        font-size: 14px;
-        border: 1px dashed #F7931A;
-        display: inline-block;
-        margin-top: 10px;
-        cursor: pointer;
-        transition: all 0.3s;
-        word-break: break-all;
-    }
-    .btc-address:hover {
-        background-color: #262626;
-        transform: scale(1.05);
-    }
-
-    @media (max-width: 768px) {
-        .header-text-h1 { font-size: 38px !important; }
-        div[data-testid="stPopover"] { margin-top: 10px !important; }
-    }
-            
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-
-    [data-testid="stMetric"], .stPlotlyChart, [data-testid="stVerticalBlock"] > div {
-        animation: fadeIn 0.8s ease-out forwards;
-    }
-            
-    /* FAQ button */
-    [data-testid="stPageLink-NavLink"] {
-        display: flex !important;
-        justify-content: center !important;
-        align-items: center !important;
-        background-color: #1E1E1E !important;
-        border: 1px solid #FF7676 !important; 
-        border-radius: 12px !important; 
-        padding: 10px 0px !important; 
-        transition: all 0.3s ease !important; 
-    }
-    
-    [data-testid="stPageLink-NavLink"] p {
-        flex: none !important; 
-        margin: 0 !important;
-        font-weight: bold !important;
-    }
-
-    /* Hover effect */
-    [data-testid="stPageLink-NavLink"]:hover {
-        background-color: #262626 !important; 
-        border-color: #FF4B4B !important; 
-        transform: scale(1.05) !important; 
-    }
-    </style>
-    """, unsafe_allow_html=True)
+applyCSS_styles()
 
 # 3 - language selector
 if "selected_language" not in st.session_state:

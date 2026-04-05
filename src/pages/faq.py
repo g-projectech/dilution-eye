@@ -1,5 +1,6 @@
 import streamlit as st
 from translations import LANGUAGES, FAQ
+from styles import applyCSS_styles
 
 # 1- config
 st.set_page_config(
@@ -9,51 +10,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# 2 - CSS
-st.markdown("""
-    <style>   
-    [data-testid="stHeaderActionElements"] { 
-        display: none !important; 
-    }
-    
-    header[data-testid="stHeader"] { 
-        visibility: hidden !important;
-        height: 0% !important;
-    }
-    
-    [data-testid="stSidebarNav"], 
-    [data-testid="stSidebar"], 
-    [data-testid="collapsedControl"] { 
-        display: none !important; 
-    }
-    
-    footer { 
-        visibility: hidden !important; 
-    }
-
-    /* home button */
-    [data-testid="stPageLink-NavLink"] {
-        display: flex !important;
-        justify-content: center !important;
-        align-items: center !important;
-        background-color: #1E1E1E !important; 
-        border: 1px solid #FF7676 !important;
-        border-radius: 12px !important; 
-        padding: 10px 0px !important; 
-        transition: all 0.3s ease !important; 
-    }
-    [data-testid="stPageLink-NavLink"] p {
-        flex: none !important; 
-        margin: 0 !important;
-        font-weight: bold !important;
-    }
-    [data-testid="stPageLink-NavLink"]:hover {
-        background-color: #262626 !important; 
-        border-color: #FF4B4B !important;
-        transform: scale(1.05) !important; 
-    }
-    </style>
-    """, unsafe_allow_html=True)
+applyCSS_styles()
 
 # 3 - language selector
 if "selected_language" not in st.session_state:
