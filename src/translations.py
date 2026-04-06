@@ -19,7 +19,7 @@ LANGUAGES = {
         "kpi_status": "Status",
         "chart_title": "Shares Outstanding evolution",
         "alert_title": "Log Alerts",
-        "footer_disclaimer": "⚠️ DISCLAIMER: The information provided is for informational purposes only and does not constitute financial advice. The author assumes no responsibility for decisions based on this data.",
+        "footer_disclaimer": "⚠️ The information provided is for informational purposes only and does not constitute financial advice. The author assumes no responsibility for decisions based on this data.",
         "donate_title": "Support Dilution Eye",
         "donate_sub": "Click the address to copy and donate Bitcoin",
         "address_copied": "Copied!"
@@ -43,7 +43,7 @@ LANGUAGES = {
         "kpi_status": "Stato",
         "chart_title": "Evoluzione del numero di azioni",
         "alert_title": "Log Alert",
-        "footer_disclaimer": "⚠️ DISCLAIMER: Le informazioni fornite hanno scopo puramente informativo e non costituiscono consigli finanziari. L'autore non si assume responsabilità per decisioni basate su questi dati.",
+        "footer_disclaimer": "⚠️ Le informazioni fornite hanno scopo puramente informativo e non costituiscono consigli finanziari. L'autore non si assume responsabilità per decisioni basate su questi dati.",
         "donate_title": "Supporta Dilution Eye",
         "donate_sub": "Clicca sull'indirizzo per copiare e donare in Bitcoin",
         "address_copied": "Copiato!"
@@ -67,7 +67,7 @@ LANGUAGES = {
         "kpi_status": "Estado",
         "chart_title": "Evolución del número de acciones",
         "alert_title": "Registro Alertas",
-        "footer_disclaimer": "⚠️ DESCARGO DE RESPONSABILIDAD: La información proporcionada es solo para fines informativos y no constituye asesoramiento financiero. El autor no asume responsabilidad por las decisiones basadas en estos datos.",
+        "footer_disclaimer": "⚠️ La información proporcionada es solo para fines informativos y no constituye asesoramiento financiero. El autor no asume responsabilidad por las decisiones basadas en estos datos.",
         "donate_title": "Apoya a Dilution Eye",
         "donate_sub": "Haga clic en la dirección para copiar y donar en Bitcoin",
         "address_copied": "¡Copiado!"
@@ -91,7 +91,7 @@ LANGUAGES = {
         "kpi_status": "État",
         "chart_title": "Évolution du nombre d'actions",
         "alert_title": "Journal alertes",
-        "footer_disclaimer": "⚠️ CLAUSE DE NON-RESPONSABILITÉ : Les informations fournies le sont à titre informatif uniquement et ne constituent pas un conseil financier. L'auteur n'assume aucune responsabilité pour les décisions basées sur ces données.",
+        "footer_disclaimer": "⚠️ Les informations fournies le sont à titre informatif uniquement et ne constituent pas un conseil financier. L'auteur n'assume aucune responsabilité pour les décisions basées sur ces données.",
         "donate_title": "Soutenir Dilution Eye",
         "donate_sub": "Cliquez sur l'adresse pour copier et faire un don en Bitcoin",
         "address_copied": "Copié !"
@@ -121,13 +121,17 @@ FAQ = {
         "q7": "Can I predict future dilutions?",
         "a7": "No. Dilution Eye cannot predict future dilutions; the tool only analyzes consolidated historical data.",
         "q8": "Can I search for any publicly traded company?",
-        "a8": "Yes, for any ticker available on Yahoo Finance, which covers the vast majority of global stock exchanges.",
+        "a8": "Yes, for any ticker or ISIN available on Yahoo Finance, which covers the vast majority of global stock exchanges.",
         "q9": "What are the limitations of Dilution Eye?",
-        "a9": "The main limits are: \n\n 1) Reliance on Yahoo Finance (if data on their servers is incomplete or incorrect, the results will be too). \n\n 2) Dilution from employee stock options is difficult to isolate purely from historical outstanding shares data."
+        "a9": "The main limits are: \n\n 1) Reliance on Yahoo Finance (if data on their servers is incomplete or incorrect, the results will be too). \n\n 2) Dilution from employee stock options is difficult to isolate purely from historical outstanding shares data.",
+        "q10": "Can I search for ETFs or other financial instruments?",
+        "a10": "No. The search is indexed for stocks only.",
+        "q11": "Why does searching for ENI, ISP, or other companies return no results?",
+        "a11": "Since they are listed on multiple exchanges, you must add the **exchange suffix** of the primary market (e.g., .MI for Milan) to the ticker. Alternatively, enter the ISIN for a more precise result."
     },
     "Italiano": {
         "title": "F.A.Q.",
-        "q1": "Da dove vengono i dati?",
+        "q1": "Da dove provengono i dati?",
         "a1": "Tutti i dati provengono da Yahoo Finance tramite la libreria yfinance. Per ogni ticker o ISIN vengono scaricate due serie storiche: il numero di azioni in circolazione nel tempo e la storia degli split azionari con le relative date e moltiplicatori.",
         "q2": "Cosa sono gli split azionari e perché è necessario gestirli?",
         "a2": "Uno split è quando un'azienda divide le sue azioni (es. 2-for-1: ogni azione diventa due). Senza una normalizzazione, un'azienda che fa uno split 2-a-1 sembrerebbe aver diluito del 100% gli azionisti, il che è falso. Il valore per l'azionista resta invariato. Il programma corregge questo artefatto matematico ricalcolando tutta la serie storica in base agli split successivi.",
@@ -146,9 +150,13 @@ FAQ = {
         "q7": "Posso prevedere diluizioni future?",
         "a7": "No. Con Dilution Eye non puoi prevedere eventuali diluizioni future, il tool analizza solo lo storico consolidato.",
         "q8": "Si può cercare qualsiasi azienda quotata in borsa?",
-        "a8": "Sì, per qualsiasi ticker disponibile su Yahoo Finance, che copre la grande maggioranza delle borse mondiali.",
+        "a8": "Sì, per qualsiasi ticker o ISIN disponibile su Yahoo Finance, che copre la grande maggioranza delle borse mondiali.",
         "q9": "Quali sono i limiti di Dilution Eye?",
-        "a9": "I principali limiti sono due: \n\n 1) Dipendenza da Yahoo Finance (se i dati sul loro server sono incompleti o errati, lo saranno anche i risultati). \n\n 2) La diluizione derivante da stock option o compensi ai dipendenti è difficile da isolare dai soli dati storici globali."
+        "a9": "I principali limiti sono due: \n\n 1) Dipendenza da Yahoo Finance (se i dati sul loro server sono incompleti o errati, lo saranno anche i risultati). \n\n 2) La diluizione derivante da stock option o compensi ai dipendenti è difficile da isolare dai soli dati storici globali.",
+        "q10": "Posso cercare ETF o altri strumenti finanziari?",
+        "a10": "No. La ricerca è indicizzata solo alle azioni.",
+        "q11": "Perché se cerco ENI, ISP o altre società non restituisce nulla?",
+        "a11": "Poiché sono quotate su più mercati, è necessario aggiungere il **suffisso della borsa di riferimento** (es. .MI per Milano) al ticker. In alternativa, inserisci l'ISIN per un risultato più preciso."
     },
     "Español": {
         "title": "F.A.Q.",
@@ -171,9 +179,13 @@ FAQ = {
         "q7": "¿Puedo predecir futuras diluciones?",
         "a7": "No. Dilution Eye no puede predecir futuras diluciones; la herramienta solo analiza el historial consolidado.",
         "q8": "¿Puedo buscar cualquier empresa que cotice en bolsa?",
-        "a8": "Sí, para cualquier ticker disponible en Yahoo Finance, que cubre la gran mayoría de las bolsas mundiales.",
+        "a8": "Sí, para cualquier ticker o ISIN disponible en Yahoo Finance, que cubre la gran mayoría de las bolsas mundiales.",
         "q9": "What are the limitations of Dilution Eye?",
-        "a9": "Los límites principales son: \n\n 1) Dependencia de Yahoo Finance (si los datos en sus servidores están incompletos o son incorrectos, los resultados también lo serán). \n\n 2) La dilución derivada de opciones sobre acciones para empleados es difícil de aislar solo con datos históricos de acciones en circulación."
+        "a9": "Los límites principales son: \n\n 1) Dependencia de Yahoo Finance (si los datos en sus servidores están incompletos o son incorrectos, los resultados también lo serán). \n\n 2) La dilución derivada de opciones sobre acciones para empleados es difícil de aislar solo con datos históricos de acciones en circulación.",
+        "q10": "¿Puedo buscar ETFs u otros instrumentos financieros?",
+        "a10": "No. La búsqueda está indexada solo para acciones.",
+        "q11": "¿Por qué si busco ENI, ISP u otras empresas no devuelve nada?",
+        "a11": "Debido a que cotizan en varios mercados, es necesario añadir el **sufijo de la bolsa de referencia** (ej. .MI para Milán) al ticker. Alternativamente, introduzca el ISIN para un resultado más preciso."
     },
     "Français": {
         "title": "F.A.Q.",
@@ -196,8 +208,12 @@ FAQ = {
         "q7": "Puis-je prévoir les dilutions futures ?",
         "a7": "Non. Dilution Eye ne peut pas prédire les éventuelles dilutions futures ; l'outil n'analyse que l'historique consolidé.",
         "q8": "Peut-on rechercher n'importe quelle entreprise cotée en bourse ?",
-        "a8": "Oui, pour tout ticker disponible sur Yahoo Finance, qui couvre la grande majorité des bourses mondiales.",
+        "a8": "Oui, pour tout ticker ou ISIN disponible sur Yahoo Finance, qui couvre la grande majorité des bourses mondiales.",
         "q9": "What are the limitations of Dilution Eye?",
-        "a9": "Les principales limites sont : \n\n 1) Dépendance à Yahoo Finance (si les données sur leurs serveurs sont incomplètes ou erronées, les résultats le seront aussi). \n\n 2) La dilution due aux stock-options pour les employés est difficile à isoler des seules données historiques des actions en circulation."
+        "a9": "Les principales limites sont : \n\n 1) Dépendance à Yahoo Finance (si les données sur leurs serveurs sont incomplètes ou erronées, les résultats le seront aussi). \n\n 2) La dilution due aux stock-options pour les employés est difficile à isoler des seules données historiques des actions en circulation.",
+        "q10": "Puis-je rechercher des ETF ou d'autres instruments financiers ?",
+        "a10": "Non. La recherche est indexée uniquement pour les actions.",
+        "q11": "Pourquoi la recherche d'ENI, ISP ou d'autres sociétés ne donne-t-elle aucun résultat ?",
+        "a11": "Comme elles sont cotées sur plusieurs marchés, il est nécessaire d'ajouter l'**extension de la bourse de référence** (ex. .MI pour Milan) au ticker. Alternativement, saisissez l'ISIN pour un résultat plus précis."
     }
 }

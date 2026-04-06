@@ -42,7 +42,7 @@ st.markdown(f"<h1 style='text-align: center; color: white;'>{faq_texts['title']}
 st.write("#")
 
 # 6- FAQ generator
-for i in range(1, 10):
+for i in range(1, 100):
     q_key = f"q{i}"
     a_key = f"a{i}"
     
