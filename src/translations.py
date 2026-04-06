@@ -13,6 +13,7 @@ LANGUAGES = {
         "error_empty": "⚠️ Please enter a Ticker or ISIN before analyzing.",
         "error_not_found": "Ticker not found. Please check the symbol and try again.",
         "loading_after_research": "Analyzing...",
+        "rate_limit": "Yahoo Finance is temporarily unavailable (Rate Limit). Please try again in a few minutes.",
 
         "kpi_shares": "Total Shares",
         "kpi_change": "Last Year Change",
@@ -37,6 +38,7 @@ LANGUAGES = {
         "error_empty": "⚠️ Per favore, inserisci un Ticker o un ISIN prima di analizzare.",
         "error_not_found": "Ticker non trovato. Controlla il codice e riprova.",
         "loading_after_research": "Analisi in corso...",
+        "rate_limit": " Yahoo Finance è temporaneamente non disponibile (Rate Limit). Riprova tra qualche minuto.",
 
         "kpi_shares": "Azioni Totali",
         "kpi_change": "Var. Ultimo Anno",
@@ -61,6 +63,7 @@ LANGUAGES = {
         "error_empty": "⚠️ Por favor, ingrese un Ticker o ISIN antes de analizar.",
         "error_not_found": "Ticker no encontrado. Compruebe el símbolo e inténtelo de nuevo.",
         "loading_after_research": "Análisis en curso...",
+        "rate_limit": "Yahoo Finance no está disponible temporalmente (Límite de peticiones). Inténtelo de nuevo en unos minutos.",
 
         "kpi_shares": "Acciones Totales",
         "kpi_change": "Var. Último Año",
@@ -85,6 +88,7 @@ LANGUAGES = {
         "error_empty": "⚠️ Veuillez saisir un Ticker ou un ISIN avant d'analyser.",
         "error_not_found": "Ticker introuvable. Veuillez vérifier le symbole et réessayer.",
         "loading_after_research": "Analyse en cours...",
+        "rate_limit": "Yahoo Finance est temporairement indisponible (Limite de requêtes). Veuillez réessayer dans quelques minutes.",
 
         "kpi_shares": "Actions Totales",
         "kpi_change": "Var. Dernière Année",

@@ -69,8 +69,14 @@ if btn:
             if detector.fetch_and_normalize_shares() and detector.calculate_dilution_metrics():
                 
                 # get the company name
-                company_info = detector.ticker.info
-                company_name = company_info.get('longName') or company_info.get('shortName') or query.upper()
+            # Tentiamo di recuperare il nome, se fallisce usiamo il ticker inserito
+                try:
+                    company_info = detector.ticker.info
+                    company_name = company_info.get('longName') or company_info.get('shortName') or query.upper()
+                except Exception:
+                    # Se c'è un Rate Limit o errore, usiamo il Ticker per non bloccare l'app
+                    st.error(texts['rate_limit'])
+                    company_name = query.upper()
                 
                 # show company's name
                 st.markdown(f"""
