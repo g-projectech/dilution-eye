@@ -73,7 +73,6 @@ if btn:
                     company_info = detector.ticker.info
                     company_name = company_info.get('longName') or company_info.get('shortName') or query.upper()
                 except Exception:
-                    # Se c'è un Rate Limit o errore, usiamo il Ticker per non bloccare l'app
                     company_name = query.upper()
                 
                 # show company's name
@@ -144,8 +143,13 @@ if btn:
                             elif "🟢" in alert: st.success(alert)
                             else: st.info(alert)
             else:
-                # yfinance can't find anything
-                st.error(f"{texts["error_not_found"]} \n\n ({texts['rate_limit']})")
+                try:
+                    # yfinance can't find anything
+                    if detector.ticker.fast_info:
+                        st.error(texts["error_not_found"])
+                except Exception:
+                    # rate limit
+                    st.error(texts["rate_limit"])
 
 # 7 - link FAQ
 st.write("##")
