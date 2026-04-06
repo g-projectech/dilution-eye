@@ -1,6 +1,9 @@
 import yfinance as yf
 import pandas as pd
 from typing import Optional
+import logging
+
+logger = logging.getLogger(__name__)
 
 class DilutionDetector:
     def __init__(self, ticker_symbol: str):
@@ -18,7 +21,7 @@ class DilutionDetector:
             raw_shares = self.ticker.get_shares_full(start="1990-01-01", end=None)
             
             if raw_shares is None or raw_shares.empty:
-                print(f"No shares data found for {self.ticker_symbol}.")
+                logger.warning(f"No shares data found for {self.ticker_symbol}.")
                 return False
 
             # 2. Fetch split history
@@ -39,7 +42,7 @@ class DilutionDetector:
                     mask_before_split = df.index < split_date
                     df.loc[mask_before_split, 'Split_Multiplier'] *= split_factor
                     
-                    # Catch Reverse Splits (Severe Alert)
+                    # catch Reverse Splits
                     if split_factor < 1.0:
                         self.alerts.append(
                             f"🚨 REVERSE SPLIT detected on {split_date.strftime('%Y-%m-%d')} (Factor: {split_factor})"
@@ -51,7 +54,7 @@ class DilutionDetector:
             return True
 
         except Exception as e:
-            print(f"Error processing {self.ticker_symbol}: {e}")
+            logger.error(f"Error processing {self.ticker_symbol}: {e}")
             return False
 
     def calculate_dilution_metrics(self) -> bool:
@@ -68,7 +71,7 @@ class DilutionDetector:
             year_str = date.strftime('%Y')
             
             if pct > 10.0:
-                self.alerts.append(f"🚩 {year_str}: SEVERE Dilution (+{pct:.2f}%)")
+                self.alerts.append(f"🚩 {year_str}: Severe Dilution (+{pct:.2f}%)")
             elif pct > 5.0:
                 self.alerts.append(f"⚠️ {year_str}: Significant Dilution (+{pct:.2f}%)")
             elif pct > 0.0:

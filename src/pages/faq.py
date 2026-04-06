@@ -34,7 +34,7 @@ faq_texts = FAQ[sel_lang]
 st.write("##")
 col_empty1, col_button, col_empty2 = st.columns([7, 2, 7])
 with col_button:
-    st.page_link("app.py", label="Home", use_container_width=True)
+    st.page_link("app.py", label="Home", width="stretch")
 st.write("##")
 
 # 5 - page title
