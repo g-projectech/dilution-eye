@@ -36,5 +36,8 @@ Dilution Eye offers a fast and intuitive dashboard powered by **Yahoo Finance**.
 
 Dilution Eye is an educational and informational tool only. The data and analysis provided do not constitute financial, investment, or legal advice. Information accuracy depends entirely on Yahoo Finance and is not guaranteed. The author assumes no responsibility for any financial losses or decisions made based on this data. Always perform your own due diligence.
 
+## Privacy
+Dilution Eye does not track IP addresses, personal data, or geolocation. For debugging purposes and to optimize performance, the system records only the text entered into the search bar and the query result (Success/Error). These logs are private and accessible only to the developer.
+
 ## License
 This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.

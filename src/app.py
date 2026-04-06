@@ -5,6 +5,15 @@ from translations import LANGUAGES, FAQ
 from styles import applyCSS_styles
 import base64
 import os
+import logging
+
+# basic configuration
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    datefmt='%Y-%m-%d %H:%M:%S'
+)
+logger = logging.getLogger(__name__)
 
 # 1 - config
 st.set_page_config(
@@ -49,113 +58,92 @@ st.markdown(f"""
 # 5 - research area
 c1, c2, c3 = st.columns([1, 2, 1])
 with c2:
-    query = st.text_input(texts["input_label"], placeholder=texts["input_placeholder"]).upper()
-    btn = st.button(texts["btn_analyze"], type="primary", use_container_width=True)
+    query = st.text_input(texts["input_label"],
+    placeholder=texts["input_placeholder"],
+    max_chars=12  # Limita l'input fisico a 12 caratteri
+    ).upper()
+    btn = st.button(texts["btn_analyze"], type="primary", width="stretch")
 
 st.write("##")
 
 # 6 - logic analysis 
 if btn:
-    # 1 - if the search bar is empty
+    # 1 - se la barra di ricerca è vuota
     if not query.strip():
         st.warning(texts['error_empty'])
     
-    # 2 - if there is text
+    # 2 - se c'è del testo
     else:
         with st.spinner(texts['loading_after_research']):
-            detector = DilutionDetector(query)
+            log_ticker = query.strip().upper()[:12]
+            logger.info(f"Ricerca avviata per: {log_ticker}")
             
-            # let's try downloading data
-            if detector.fetch_and_normalize_shares() and detector.calculate_dilution_metrics():
+            try:
+                # is ISIN is correct
+                detector = DilutionDetector(query)
                 
-                # get the company name
-                try:
-                    company_info = detector.ticker.info
-                    company_name = company_info.get('longName') or company_info.get('shortName') or query.upper()
-                except Exception:
-                    company_name = query.upper()
+                if detector.fetch_and_normalize_shares() and detector.calculate_dilution_metrics():
+                    
+                    # company's name
+                    try:
+                        company_info = detector.ticker.info
+                        company_name = company_info.get('longName') or company_info.get('shortName') or query.upper()
+                    except Exception:
+                        company_name = query.upper()
+                    
+                    # UI result
+                    st.markdown(f"<h2 style='text-align: center; color: white;'>{company_name}</h2>", unsafe_allow_html=True)
+                    st.markdown("<hr style='border: 1px solid #333;'>", unsafe_allow_html=True)
+
+                    # KPI
+                    m1, m2, m3 = st.columns(3)
+                    last_var = detector.yearly_dilution_pct.iloc[-1]
+                    tot_shares = detector.shares_data['Adjusted_Shares'].iloc[-1]
+                    
+                    if last_var <= 0: status = "POSITIVE 🟢"
+                    elif 0 < last_var <= 5: status = "STABLE ⚪"
+                    elif 5 < last_var <= 10: status = "WARNING 🟡"
+                    else: status = "DILUTING 🚩"
+
+                    m1.metric(texts["kpi_shares"], f"{tot_shares:,.0f}")
+                    m2.metric(texts["kpi_change"], f"{last_var:.2f}%", delta=f"{last_var:.2f}%", delta_color="inverse")
+                    m3.metric(texts["kpi_status"], status)
+
+                    # chart and alert
+                    col_left, col_right = st.columns([0.65, 0.35])
+                    with col_left:
+                        st.subheader(f"{texts['chart_title']}")
+                        fig = px.area(x=detector.shares_data.index, y=detector.shares_data['Adjusted_Shares'])
+                        fig.update_layout(template="plotly_dark", margin=dict(l=0, r=0, t=10, b=0))
+                        st.plotly_chart(fig, width="stretch")
+                        
+                    with col_right:
+                        st.subheader(f"{texts['alert_title']}")
+                        with st.container(height=450):
+                            for alert in detector.alerts[::-1]:
+                                if "🚩" in alert or "🚨" in alert: st.error(alert)
+                                elif "⚠️" in alert: st.warning(alert)
+                                elif "🟢" in alert: st.success(alert)
+                                else: st.info(alert)
+                else:
+                    # valid ticker but no data (yf)
+                    st.error(texts["error_not_found"])
+
+            except ValueError as e:
+                # catch Invalid ISIN
+                logger.error(f"Validazione fallita per {log_ticker}: {e}")
+                st.error(texts["error_not_found"])
                 
-                # show company's name
-                st.markdown(f"""
-                    <h2 style='text-align: center; color: white; margin-bottom: 0;'>
-                        {company_name}
-                    </h2>
-                    """, unsafe_allow_html=True)
-                st.markdown("<hr style='margin-top: 5px; margin-bottom: 25px; border: 1px solid #333;'>",unsafe_allow_html=True)
-
-                # KPI (key performance indicator)
-                m1, m2, m3 = st.columns(3)
-                last_var = detector.yearly_dilution_pct.iloc[-1]
-                tot_shares = detector.shares_data['Adjusted_Shares'].iloc[-1]
-                
-                # status definition
-                if last_var <= 0: 
-                    status = "POSITIVE 🟢"
-                elif 0 < last_var <= 5: 
-                    status = "STABLE ⚪"
-                elif 5 < last_var <= 10: 
-                    status = "WARNING 🟡"
-                else: 
-                    status = "DILUTING 🚩"
-
-                m1.metric(texts["kpi_shares"], f"{tot_shares:,.0f}")
-                m2.metric(texts["kpi_change"], f"{last_var:.2f}%", delta=f"{last_var:.2f}%", delta_color="inverse")
-                m3.metric(texts["kpi_status"], status)
-
-                st.write("###")
-
-                # split the page
-                col_left, col_right = st.columns([0.65, 0.35])
-                
-                with col_left:
-                    st.subheader(f"{texts['chart_title']} - {company_name}")
-                    
-                    fig = px.area(
-                        x=detector.shares_data.index, 
-                        y=detector.shares_data['Adjusted_Shares'],
-                        labels={'x': texts['date'], 'y': texts['kpi_shares']}
-                    )
-                    
-                    # chart
-                    fig.update_layout(
-                        template="plotly_dark", 
-                        margin=dict(l=0, r=0, t=10, b=0),
-                        dragmode=False
-                    )
-                    
-                    #chart
-                    st.plotly_chart(
-                        fig, 
-                        use_container_width=True,
-                        config={
-                            'scrollZoom': False, 
-                            'displayModeBar': False
-                        }
-                    )
-                    
-                with col_right:
-                    st.subheader(f"{texts['alert_title']} - {company_name}")
-                    
-                    with st.container(height=450):
-                        for alert in detector.alerts[::-1]:
-                            if "🚩" in alert or "🚨" in alert: st.error(alert)
-                            elif "⚠️" in alert: st.warning(alert)
-                            elif "🟢" in alert: st.success(alert)
-                            else: st.info(alert)
-            else:
-                try:
-                    # yfinance can't find anything
-                    if detector.ticker.fast_info:
-                        st.error(texts["error_not_found"])
-                except Exception:
-                    # rate limit
-                    st.error(texts["rate_limit"])
+            except Exception as e:
+                # other errors
+                logger.error(f"Errore imprevisto su {log_ticker}: {e}")
+                st.error(texts["error_not_found"])
 
 # 7 - link FAQ
 st.write("##")
 col_vuota1, col_bottone, col_vuota2 = st.columns([9, 2, 9])
 with col_bottone:
-    st.page_link("pages/faq.py", label=faq_texts["title"], use_container_width=True)
+    st.page_link("pages/faq.py", label=faq_texts["title"], width="stretch")
 st.write("##")
 
 # 8 - footer
