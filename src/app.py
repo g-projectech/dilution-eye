@@ -113,8 +113,23 @@ if btn:
                     col_left, col_right = st.columns([0.65, 0.35])
                     with col_left:
                         st.subheader(f"{texts['chart_title']}")
-                        fig = px.area(x=detector.shares_data.index, y=detector.shares_data['Adjusted_Shares'])
-                        fig.update_layout(template="plotly_dark", margin=dict(l=0, r=0, t=10, b=0))
+                        
+                        fig = px.area(
+                            x=detector.shares_data.index, 
+                            y=detector.shares_data['Adjusted_Shares'],
+                            labels={
+                                "x": texts["date"], 
+                                "y": texts["chart_y_label"]
+                            }
+                        )
+                        
+                        fig.update_layout(
+                            template="plotly_dark", 
+                            margin=dict(l=0, r=0, t=10, b=0),
+                            xaxis_title=texts["date"],
+                            yaxis_title=texts["chart_y_label"]
+                        )
+                        
                         st.plotly_chart(fig, width="stretch")
                         
                     with col_right:
