@@ -8,6 +8,7 @@ LANGUAGES = {
         "input_placeholder": "(GOOG, AAPL, NVDA, TSLA...)",
         "btn_analyze": "Analyze",
         "date": "Date",
+        "chart_y_label": "Shares Outstanding",
 
         # other tickers
         "error_empty": "⚠️ Please enter a Ticker or ISIN before analyzing.",
@@ -32,6 +33,7 @@ LANGUAGES = {
         "input_placeholder": "(GOOG, AAPL, NVDA, TSLA...)",
         "btn_analyze": "Analizza",
         "date": "Data",
+        "chart_y_label": "Azioni in Circolazione",
 
 
         #other tickers
@@ -57,6 +59,7 @@ LANGUAGES = {
         "input_placeholder": "(GOOG, AAPL, NVDA, TSLA...)",
         "btn_analyze": "Analizar",
         "date": "Fecha",
+        "chart_y_label": "Acciones en circulación",
 
 
         # other tickers
@@ -82,6 +85,7 @@ LANGUAGES = {
         "input_placeholder": "(GOOG, AAPL, NVDA, TSLA...)",
         "btn_analyze": "Analyser",
         "date": "Date",
+        "chart_y_label": "Actions en circulation",
 
 
         # other tickers
