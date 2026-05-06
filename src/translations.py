@@ -18,7 +18,7 @@ LANGUAGES = {
 
         "kpi_shares": "Total Shares",
         "kpi_change": "Last Year Change",
-        "kpi_status": "Status",
+        "kpi_status": "Current Status",
         "chart_title": "Shares Outstanding evolution",
         "alert_title": "Log Alerts",
         "footer_disclaimer": "⚠️ The information provided is for informational purposes only and does not constitute financial advice. The author assumes no responsibility for decisions based on this data.",
@@ -44,7 +44,7 @@ LANGUAGES = {
 
         "kpi_shares": "Azioni Totali",
         "kpi_change": "Var. Ultimo Anno",
-        "kpi_status": "Stato",
+        "kpi_status": "Stato corrente",
         "chart_title": "Evoluzione del numero di azioni",
         "alert_title": "Log Alert",
         "footer_disclaimer": "⚠️ Le informazioni fornite hanno scopo puramente informativo e non costituiscono consigli finanziari. L'autore non si assume responsabilità per decisioni basate su questi dati.",
@@ -70,7 +70,7 @@ LANGUAGES = {
 
         "kpi_shares": "Acciones Totales",
         "kpi_change": "Var. Último Año",
-        "kpi_status": "Estado",
+        "kpi_status": "Estado actual",
         "chart_title": "Evolución del número de acciones",
         "alert_title": "Registro Alertas",
         "footer_disclaimer": "⚠️ La información proporcionada es solo para fines informativos y no constituye asesoramiento financiero. El autor no asume responsabilidad por las decisiones basadas en estos datos.",
@@ -96,7 +96,7 @@ LANGUAGES = {
 
         "kpi_shares": "Actions Totales",
         "kpi_change": "Var. Dernière Année",
-        "kpi_status": "État",
+        "kpi_status": "État actuel",
         "chart_title": "Évolution du nombre d'actions",
         "alert_title": "Journal alertes",
         "footer_disclaimer": "⚠️ Les informations fournies le sont à titre informatif uniquement et ne constituent pas un conseil financier. L'auteur n'assume aucune responsabilité pour les décisions basées sur ces données.",
